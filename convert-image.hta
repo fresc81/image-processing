@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <title>Bildkonvertierung und Wasserzeichen</title>
+    <hta:application
+      applicationname="GetRef HTA"
+      version="1.0.0"
+
+      border="thin"
+      borderStyle="normal"
+      icon="convert-image.ico"
+      caption="yes"
+      innerBorder="no"
+      selection="no"
+      contextmenu="no"
+    />
+    <link rel="stylesheet" href="convert-image.css" />
+  </head>
+  <body onload="Main()">
+
+    <h1>Bildkonvertierung und Wasserzeichen</h1>
+
+    <p>
+      <h2>ImageMagick Version</h2>
+
+      Hier folgt eine kurze Versionsinformation von ImageMagick:
+      <pre id="version"></pre>
+
+    </p>
+
+    <p>
+      <h2>Quellverzeichnis</h2>
+
+      Wählen Sie das Eingabe-Verzeichnis mit den Bild-Quellen:<br /><br />
+      <button id="browseSrcFolderBtn">Auswählen...</button>
+      <span id="srcFolderTxt" class="textbox"></span><br /><br />
+
+      Wählen Sie das Format der Quelldateien:<br /><br />
+      <span><input id="srcExtension1" type="radio" name="srcExtension" value="jpg" checked="checked" /> JPG</span>
+      <span><input id="srcExtension2" type="radio" name="srcExtension" value="jpeg" /> JPEG</span>
+      <span><input id="srcExtension3" type="radio" name="srcExtension" value="png" /> PNG</span>
+      <span><input id="srcExtension4" type="radio" name="srcExtension" value="gif" /> GIF</span>
+
+    </p>
+
+    <p>
+      <h2>Zielverzeichnis</h2>
+
+      Wählen Sie ein Ausgabe-Verzeichnis für die bearbeiteten Bilder:<br /><br />
+      <button id="browseDstFolderBtn">Auswählen...</button>
+      <span id="dstFolderTxt" class="textbox"></span><br /><br />
+
+      Wählen Sie das Format der Zieldateien:<br /><br />
+      <span><input id="dstExtension1" type="radio" name="dstExtension" value="jpg" checked="checked" /> JPG</span>
+      <span><input id="dstExtension2" type="radio" name="dstExtension" value="jpeg" /> JPEG</span>
+      <span><input id="dstExtension3" type="radio" name="dstExtension" value="png" /> PNG</span>
+      <span><input id="dstExtension4" type="radio" name="dstExtension" value="gif" /> GIF</span>
+
+    </p>
+
+    <p>
+      <h2>Maximale Bild-Größe</h2>
+
+      Bitte geben Sie an, ob große Bilder vor Anwendung des Wasserzeichens verkleinert werden sollen:<br /><br />
+      <div contenteditable="false">
+        <input id="resizeImageCheck" type="checkbox" checked="checked" />
+        <span>Aktiviert das Verkleinern von Bildern</span>
+      </div><br />
+
+      Bitte geben Sie die maximale Bildgröße ein ( Breite x Höhe ):<br /><br />
+      <div>
+        ( <input id="maxImageWidth" type="number" min="1" max="4096" step="1" value="1900" />
+        x <input id="maxImageHeight" type="number" min="1" max="4096" step="1" value="1080" /> )
+      </div>
+
+    </p>
+
+    <p>
+      <h2>Wasserzeichen</h2>
+
+      Bitte geben Sie den Text für das Wasserzeichen ein:<br /><br />
+      <input id="stampTxt" type="text" size="50" value="© 2016 Paul Bottin" /><br /><br />
+
+      Bitte geben Sie die Größe des Wasserzeichens ein ( Breite x Höhe ):<br /><br />
+      <div>
+        ( <input id="stampWidth" type="number" min="1" max="4096" step="1" value="1024" />
+        x <input id="stampHeight" type="number" min="1" max="4096" step="1" value="128" /> )
+      </div><br />
+
+      Bitte geben Sie an, ob der Rand des Wasserzeichens beschnitten werden soll:<br /><br />
+      <div contenteditable="false">
+        <input id="stampTrim" type="checkbox" checked="checked" />
+        <span>Aktiviert das Trimmen des Wasserzeichens</span>
+      </div><br />
+
+      Bitte geben Sie die Schriftart für das Wasserzeichen ein:<br /><br />
+      <input id="stampFont" type="text" size="50" value="Arial" /><br /><br />
+
+      Bitte geben Sie die Schriftgröße für das Wasserzeichens ein:<br /><br />
+      <input id="stampFontSize" type="number" size="50" min="1" max="1024" step="1" value="20" /><br /><br />
+
+      Bitte geben Sie die gewünschte Position für das Wasserzeichen ein:<br /><br />
+      <table>
+        <tr>
+          <td><input id="stampPos1" type="radio" name="stampPos" value="northwest" /> oben links</td>
+          <td><input id="stampPos2" type="radio" name="stampPos" value="north" /> oben zentriert</td>
+          <td><input id="stampPos3" type="radio" name="stampPos" value="northeast" /> oben rechts</td>
+        </tr>
+        <tr>
+          <td><input id="stampPos4" type="radio" name="stampPos" value="west" /> mittig links</td>
+          <td><input id="stampPos5" type="radio" name="stampPos" value="center" /> mittig zentriert</td>
+          <td><input id="stampPos6" type="radio" name="stampPos" value="east" /> mittig rechts</td>
+        </tr>
+        <tr>
+          <td><input id="stampPos7" type="radio" name="stampPos" value="southwest" /> unten links</td>
+          <td><input id="stampPos8" type="radio" name="stampPos" value="south" /> unten zentriert</td>
+          <td><input id="stampPos9" type="radio" name="stampPos" value="southeast" checked="checked" /> unten rechts</td>
+        </tr>
+      </table>
+
+    </p>
+
+    <p>
+      <h2>Konvertierung starten</h2>
+
+      Beginnt die Konvertierung der Bilder.<br /><br />
+      <button id="startConversionBtn">Starten...</button><br />
+
+      <pre id="statusTxt"></pre>
+
+    </p>
+
+    <script language="vbscript" src="convert-image.vbs"></script>
+
+  </body>
+</html>

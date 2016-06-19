@@ -1,0 +1,11 @@
+﻿
+body {
+
+}
+
+.textbox {
+  display: inline-block;
+  border: 2px groove;
+  padding: 2px;
+  padding-top: 0px;
+}
